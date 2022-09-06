@@ -1,0 +1,23 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+    #List all dirs which we want to sync
+      - ./infra/k8s/*
+build:
+  local:
+    #Whenever we build an image do not try to push it off to docker hub (default behavior)
+    push: false
+  artifacts:
+    - image: 10eggs/auth
+      #Contains all the code for this image
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            #Where to sync this file to inside of our running container
+            #The dot means basically just take wherever the file was found from and throw it tot the corresponding container
+            dest: .

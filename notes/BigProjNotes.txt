@@ -9,3 +9,43 @@ warning: LF will be replaced by CRLF in ticketing/auth/package-lock.json.
 The file will have its original line endings in your working directory
 warning: LF will be replaced by CRLF in ticketing/auth/package.json.
 The file will have its original line endings in your workingss
+
+
+
+
+
+#If you did not see your server restart after changing the index.ts file, do the following:
+#Open the package.json file in the ‘auth’ directory
+#Find the ‘start’ script
+#Update the start script to the following:
+$ts-node-dev --poll src/index.ts
+
+#To run skaffold
+$skaffold dev
+
+#To prevent problem with cert in chrome
+$thisisunsafe
+
+#Remove dir from git
+$git rm -r --cached myFolder
+
+/////////////////////////
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: ticketing.dev
+      http:
+        paths:
+          - path: /api/users/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-srv
+                port:
+                  number: 3000

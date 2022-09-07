@@ -6,7 +6,7 @@ import { ValidationError } from 'express-validator';
 //this.errors=errors;
 
 export class RequestValidationError extends Error{
-   constructor(private errors: ValidationError[]){
+   constructor(public errors: ValidationError[]){
     super();
 
     //Only because we are extending a built in class

@@ -7,14 +7,21 @@ import { RequestValidationError } from '../errors/request-validation-error';
 export const errorHandler = (err:Error, req: Request, res: Response, next: NextFunction) =>{
   //Check error type
   if(err instanceof RequestValidationError){
-    console.log('Hanlding this error as a reqiest validation error')
+    const formattedErrors = err.errors.map(error=>{
+      return { message: error.msg, field: error.param}
+    })
+    return res.status(400).send({errors: formattedErrors});
   }
 
   if(err instanceof DBConnectionError){
-    console.log('DB Connection error')
+    return res.status(500).send({ errors: [
+      { message: err.reason}
+    ]})
   }
-  console.log('Something when wrong: ',err)
+  
   res.status(400).send({
-    message: err.message
+    errors:[
+      {message: 'Something went wrong'}
+    ]
   });
 }

@@ -5,6 +5,8 @@ import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
 import { errorHandler } from './middlewares/error-handler'
+import { NotFoundError } from './errors/not-found-error';
+
 const app = express();
 app.use(json());
 
@@ -14,6 +16,10 @@ app.use(signoutRouter);
 app.use(signupRouter);
 
 //Express recognize number of arguments - if it has more than 3 arguments than it is treated as error handler
+app.all('*',()=>{
+  throw new NotFoundError();
+})
+
 app.use(errorHandler);
 
 app.listen(3000, ()=>{

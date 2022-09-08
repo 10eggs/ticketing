@@ -49,3 +49,8 @@ $git rm -r --cached myFolder
 #11. ISSUE no2: Let's say I'd like to print my UserDocument in console - it shows me all properties, even these ones which are added by mongoose automatically.
 #12. Solution: Introduce interface for User Document
 #13. 
+
+#Hashing Password
+#1. Signup process
+#2. Create salt
+#3. Buffer - raw array of byte inside of it

@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import { body, validationResult } from 'express-validator'
 import { RequestValidationError } from '../errors/request-validation-error'
-import { DBConnectionError } from '../errors/db-connection-error';
+import { User } from '../models/user';
 
 const router = express.Router();
 
@@ -25,12 +25,10 @@ router.post('/api/users/signup',[
     //We are going to throw an error and it's going to be automactically picked up by that error handler middleware
       throw new RequestValidationError(errors.array());
   }
-  const {email, password } = req.body;
 
-  console.log('Creating a user...')
-  throw new DBConnectionError();
 
-  res.send({});
+
+  
 
 });
 

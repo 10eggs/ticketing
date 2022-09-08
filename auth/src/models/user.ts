@@ -17,11 +17,18 @@ interface UserAttrs{
 
 //An interface that describes the properties
 //That a User Model Has
-interface UserModel extends mongoose.Model<any>{
-  build(attrs: UserAttrs): any;
+interface UserModel extends mongoose.Model<UserDoc>{
+  build(attrs: UserAttrs): UserDoc;
 
 }
 
+//An interface that describes the properties
+//that a User Document has (User Document = Single User)
+//If we'd like to reach any built-in property we should put relevant property down here, in UserDoc interface, eg. .updatedAt
+interface UserDoc extends mongoose.Document{
+  email: string;
+  password: string;
+}
 
 
 //Schema
@@ -36,14 +43,14 @@ const userSchema = new mongoose.Schema({
     required: true
   }
 });
-
 //static property for schema:
 userSchema.statics.build = (attrs: UserAttrs)=>{
   return new User(attrs);
 
  }
 
-const User = mongoose.model<any,UserModel>('User',userSchema);
+const User = mongoose.model<UserDoc,UserModel>('User',userSchema);
+
 
 
 export { User };

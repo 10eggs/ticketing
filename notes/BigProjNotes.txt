@@ -34,4 +34,18 @@ $git rm -r --cached myFolder
 #Mongoose User Model - Represents the entire colletion of users
 #Mongoose User Document - Represents one single user
 #Initially there is no check against constructor properties, which means you can do typo in property name for example and TS will not complain
-#
+
+#Creating User Model
+#1. Create scheme - tell mongoose specifically about all the different properties that model will going to have
+#2. Create a model in MongoDB
+#3. ISSUE no1: When I'll try to create User object with passing any arguments, there is no check provided by TS, so I can do a mistake by passing wrong arguments
+#4. Solution - create an interface which describe constructor properties. Next, use new build() function to use interface
+#5. build() function need to be connected to User model. We can achieve it by add 'static' property to the model
+#6. Initially, we'll end up with error - TS doesn't understand what does it mean to assign a property to a static object
+#7. Hence we need to boost our Model to be aware of this function
+#8. Solution - introduce another interface to describe what properties our User model should have
+#9. In UserModel interface we are introducing GENERICS
+#10. After that our mongoose.model will have two generic arguments - any and UserModel
+#11. ISSUE no2: Let's say I'd like to print my UserDocument in console - it shows me all properties, even these ones which are added by mongoose automatically.
+#12. Solution: Introduce interface for User Document
+#13. 

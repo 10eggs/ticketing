@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Password } from '../services/password';
 
 //An interface that describes the properties
 //that are required to create a new User
@@ -43,6 +44,17 @@ const userSchema = new mongoose.Schema({
     required: true
   }
 });
+
+//Mongoose doesn't have great support for async/await syntex. We are using done once we've done all work.
+//Middleware function implemented in mongoose, 'pre'
+userSchema.pre('save',async function(done){
+  //pw created=modified
+  if(this.isModified('password')){
+    const hashed = await Password.toHash(this.get('password'));
+    this.set('password',hashed);
+  }
+  done();
+})
 //static property for schema:
 userSchema.statics.build = (attrs: UserAttrs)=>{
   return new User(attrs);

@@ -54,3 +54,9 @@ $git rm -r --cached myFolder
 #1. Signup process
 #2. Create salt
 #3. Buffer - raw array of byte inside of it
+
+#Middleware in Mongoose
+#1. using .pre()
+#2. using function rather than arrow function. Whenever we are calling middleware function we've got an access
+# to Entity which we are going to persist to database by calling 'this' keyword - if we would use arrow function instead then 'this' refeering to context of entire file
+  

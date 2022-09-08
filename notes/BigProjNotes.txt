@@ -29,23 +29,9 @@ $thisisunsafe
 #Remove dir from git
 $git rm -r --cached myFolder
 
-/////////////////////////
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: ingress-service
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/use-regex: "true"
-spec:
-  rules:
-    - host: ticketing.dev
-      http:
-        paths:
-          - path: /api/users/?(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: auth-srv
-                port:
-                  number: 3000
+#To interact between TS and Mongoose we need to write some custom code as mongoose doesn't support TS natively
+
+#Mongoose User Model - Represents the entire colletion of users
+#Mongoose User Document - Represents one single user
+#Initially there is no check against constructor properties, which means you can do typo in property name for example and TS will not complain
+#

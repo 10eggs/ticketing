@@ -19,6 +19,12 @@ spec:
         #This name is only for logging purposes
         - name: auth
           image: 10eggs/auth
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
 ---
 apiVersion: v1
 kind: Service
@@ -34,7 +40,7 @@ spec:
       protocol: TCP
       port: 3000
       #As container(auth) is listening on 3000
-      targetPort: 3000
+      targetPort: 3000 
 
 
 

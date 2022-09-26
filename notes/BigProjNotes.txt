@@ -59,4 +59,23 @@ $git rm -r --cached myFolder
 #1. using .pre()
 #2. using function rather than arrow function. Whenever we are calling middleware function we've got an access
 # to Entity which we are going to persist to database by calling 'this' keyword - if we would use arrow function instead then 'this' refeering to context of entire file
-  
+
+
+#AUTHENTICATION STRATEGIES!
+# To handle cookies we'll be using cookie-session package:
+# npm install cookie-session @types/cookie-session
+# to create JWT we need jsonwebtoken
+
+#Useful links:
+#https://www.base64decode.org/
+#jwt.io
+
+#Securely Storing Secrets with Kubernetes
+#In order to do that - use Secret object in kubernetes
+#Imperative approach (by using command):
+$kubectl create secrete generic jwt-secret --from-literal=<KEY>=<VALUE>
+#kubectl create secret genertic jwt-secret --from-literal=JWT_KEY=9283hdin92unc9e0j2neAASUDH
+
+
+#To get Secrets
+$kubectl get secrets

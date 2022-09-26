@@ -8,10 +8,23 @@ import { signupRouter } from './routes/signup';
 import { errorHandler } from './middlewares/error-handler'
 import { NotFoundError } from './errors/not-found-error';
 import mongoose from 'mongoose';
+import cookieSession from 'cookie-session'; 
 
 const app = express();
-app.use(json());
+//to add https connection
+//traffic to our application is through ngingx
+//Make express aware that app is behind proxy of ingress nginx
+//It makes sure that traffic is secure even if it is coming from proxy
+app.set('trust proxy',true);
 
+app.use(json());
+app.use(
+  cookieSession({
+    //to disable encryption as JWT is encrypted anyway
+    signed:false,
+    secure: true
+  })
+)
 app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signoutRouter);

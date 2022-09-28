@@ -100,3 +100,6 @@ $const person = {name='Tomek',toJSON(){return 1;}}
 
 #SHORTCUT
 #ctrl+shift+p - open PANE
+#ctrl+e - search files by name
+
+#Middleware always run in order

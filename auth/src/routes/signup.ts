@@ -1,7 +1,8 @@
 import express, { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
-import { body, validationResult } from 'express-validator'
-import { RequestValidationError } from '../errors/request-validation-error'
+import { body } from 'express-validator'
+
+import { validateRequest } from '../middlewares/validate-request';
 import { User } from '../models/user';
 import { BadRequestError } from '../errors/bad-request-error';
 
@@ -21,13 +22,9 @@ router.post('/api/users/signup',[
     .trim()
     .isLength({ min: 4, max: 20 })
     .withMessage('Password must be between 4 and 20 chars')
-],async ( req: Request,res: Response)=>{
-  const errors = validationResult(req);
-
-  if(!errors.isEmpty()){
-    //We are going to throw an error and it's going to be automactically picked up by that error handler middleware
-      throw new RequestValidationError(errors.array());
-  }
+],
+validateRequest,
+async ( req: Request,res: Response)=>{
 
   const {email,password} = req.body;
 

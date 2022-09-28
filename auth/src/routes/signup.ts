@@ -43,7 +43,7 @@ router.post('/api/users/signup',[
   const userJwt = jwt.sign({
     id: user.id,
     email: user.email
-  },'asdf');
+  },process.env.JWT_KEY!);
 
   //Store it on session object
   //Type definition we installed for jwt are not assuming there is property called jwt, that's why we can see an error here

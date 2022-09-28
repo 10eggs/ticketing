@@ -1,0 +1,57 @@
+#Scopes
+let,const,var
+
+{
+  let p = 100;
+  const q = 111;
+  //var don't have a block scope
+}
+
+//Using var makes message variable available for whole funciton (even if it was declared inside IF)
+//VAR have function scope by default
+
+//Well, it is worth mentioning here that
+//JavaScript runtime internally changes our code and moves all variable declarations
+//to the starting of the function. This is known as variable hoisting. 
+function printIfGFG( text){
+   if(text=="GeeksforGeeks"|| text=="GFG") {
+   var message = "Verified Geek";
+   console.log(message); // Output: Verified Geek
+}
+console.log(message); // Output: Verified Geek
+}
+printIfGFG("GFG");
+
+
+//Let: Variables declared using the ‘let’ keyword are similar to variables declared using the
+//‘var’ keyword with just one difference. Variables declared using ‘let’ will have block scope and will not get hoisted to the starting of the function.
+//Also, variables declared with the “let” keyword can be redefined but not redeclared.
+
+
+#Lexical
+//Dynamic Scope:
+void fun()
+{
+    printf("%d", x);
+}
+void dummy1()
+{
+    int x = 5;
+    //print 5
+    fun();
+}
+void dummy2()
+{
+    int x = 10;
+    //print 10
+    fun();
+}
+
+//Redeclared
+var greeter = "hey hi";
+var times = 4;
+if (times > 3) {
+    var greeter = "say Hello instead"; 
+}
+console.log(greeter) // "say Hello instead"
+

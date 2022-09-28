@@ -79,3 +79,24 @@ $kubectl create secrete generic jwt-secret --from-literal=<KEY>=<VALUE>
 
 #To get Secrets
 $kubectl get secrets
+
+#Mongo db returns '_id', which is usually called 'id'
+ #This lines won't work in TS as TS can't detect if this env variable was created or not
+  const userJwt = jwt.sign({
+    id: user.id,
+    email: user.email
+  },process.env.JWT_KEY);
+
+  #To mitigate this problem we are going to implement handler which detect during the boot process if env variable is there or not
+  #EXCLAMATION MARK in typescript indicate that we have handled suggested error, and typescript shouldn't worry about it
+
+
+#We can override the way how the javascript object is represented by JSON.stringify. To do so, we need to implement toJSON() method for our object, i.e.:
+$const person = {name='Tomek',toJSON(){return 1;}}
+#It always return 1
+
+#SHORTCUT
+#Ctrl+Shift+` to create new terminal.
+
+#SHORTCUT
+#ctrl+shift+p - open PANE

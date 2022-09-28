@@ -43,7 +43,19 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   }
-});
+},{
+    toJSON: {
+      //direct changes to that object
+      transform(doc,ret){
+         ret.id = ret._id;
+         delete ret._id;
+        //remove property
+        delete ret.password;
+        delete ret.__v;
+
+      }
+    }
+})
 
 //Mongoose doesn't have great support for async/await syntex. We are using done once we've done all work.
 //Middleware function implemented in mongoose, 'pre'

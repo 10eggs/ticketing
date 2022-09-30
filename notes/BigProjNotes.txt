@@ -103,3 +103,5 @@ $const person = {name='Tomek',toJSON(){return 1;}}
 #ctrl+e - search files by name
 
 #Middleware always run in order
+
+#CurrentUser - to prevent access to cookies from the browser

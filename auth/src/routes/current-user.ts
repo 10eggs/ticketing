@@ -16,8 +16,6 @@ router.get('/api/users/currentuser',(req,res)=>{
   catch(err){
     return res.send({currentUser:null});
   }
-
-
 });
 
 

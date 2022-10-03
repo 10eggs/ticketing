@@ -105,3 +105,5 @@ $const person = {name='Tomek',toJSON(){return 1;}}
 #Middleware always run in order
 
 #CurrentUser - to prevent access to cookies from the browser
+#After creation of CurrentUser handler we want to introduce another middleware to set access to routes can be used by current user.
+#

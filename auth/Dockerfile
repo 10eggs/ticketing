@@ -2,7 +2,9 @@ FROM node:alpine
 
 WORKDIR /app
 COPY package.json .
-RUN npm install
+
+#To avoid installing mongo-db-inmemory
+RUN npm install --only=prod
 COPY . .
 
 

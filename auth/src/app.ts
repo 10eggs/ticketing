@@ -22,7 +22,7 @@ app.use(
   cookieSession({
     //to disable encryption as JWT is encrypted anyway
     signed:false,
-    secure: true
+    secure: process.env.NODE_ENV !== 'test'
   })
 )
 app.use(currentUserRouter);

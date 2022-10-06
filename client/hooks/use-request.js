@@ -18,9 +18,9 @@ export default ({url,method,body})=>{
       </ul>
     </div>
     )
-  }
+  } 
 }
-
+return { doRequest, errors};
   //Standard for react hooks
   // return [doRequest, errors]
 }

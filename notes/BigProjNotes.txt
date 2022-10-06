@@ -145,3 +145,11 @@ $const person = {name='Tomek',toJSON(){return 1;}}
 Problem with Kubernetess/Ingress
 #kubectl get ing
 #kubectl describe ing
+
+#Next.js running in container cannot react on changes in file immmidiately - we need to do some changes there.
+
+
+##CSS handling
+#Bootstrap - global for whole proj
+#First - create _app.js - critial to call it exactly the same
+

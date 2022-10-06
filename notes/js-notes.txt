@@ -28,6 +28,9 @@ printIfGFG("GFG");
 //Also, variables declared with the “let” keyword can be redefined but not redeclared.
 
 
+//Let: they are not stored in global scope as var as, they have their local Scopes
+//
+
 #Lexical
 //Dynamic Scope:
 void fun()
@@ -54,4 +57,59 @@ if (times > 3) {
     var greeter = "say Hello instead"; 
 }
 console.log(greeter) // "say Hello instead"
+
+
+##1. Thread of Execution & CallStack
+Callstack(FILO)/Memory Cheap
+Execution Contexts
+Global Context
+
+Execution Context
+MEMORY                  || Execution
+Variable environment
+
+
+Execution Context phases:
+1. Memory Creation Phases
+-   create global object (window/global [node.js]
+-   create this object and bind it to the global object
+-   Store functions and variables in global execution context and set to 'undefined' (variables are undefined)
+-    
+2. Execution Phase
+-   execute one by one
+
+3.Tasks /Event Loop
+setTimeout() is not a JS itself, is a browser api as others:
+DOM API,
+setTimeout(),
+setInterval()
+AJAX
+fetch()
+
+ For setTimeout(()=>{console.log('x')},2000)
+ We are registering our callback function to the area called Task Queue or Callback Queue (FIFO)
+ Event loop is constantly running - checking task queue and pick the first task from the queue to the stack (when stack is empty?)
+ (Event loop interation also called as ticks)
+
+ Promises works differently - Microtask queue, which is separate poll from task queue
+ Microtask queue has higher priority than callback queue
+
+4. Memory storage
+Primities(stored in stack, referenced directly)
+String|Number|Boolean|Null|Undefined|Symbol|BigInt
+Referene Types: Stored in heap and accessed by reference:
+Arrays|Functions|Objects
+
+5. JS Engines
+Compiled/Interpreted
+Compiled - directly to machine code all at once (machine code eq 0s and 1s)
+JS is interpreted
+
+Source Code -> Parser -> AST (Abstract Syntax Tree) -> JustInTime Complilat ion (Optimization)
+->Bytecode(Bytecode is universal for all) -> MachineCode (Machine code is unique for architecture of machine, intel/arm based processor)
+
+JiT Compilation - take byte code and transform to machine code on a fly
+JiT has access to dynamic runtime information, that's why it helps you optimize code
+V8 - TurboFan (JiT)
+JiT - Compilation in Run-time, allow for Optimization
 

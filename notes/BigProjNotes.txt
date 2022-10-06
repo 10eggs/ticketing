@@ -110,3 +110,28 @@ $const person = {name='Tomek',toJSON(){return 1;}}
 
 
 #INTRODUCING TESTS TO OUR PROJECT
+#supertest doesn't manage cookie for us by default
+#Why we are using SSR rather than CSR?
+
+#1. Just to show how to handle it in microservices world,
+#2. Better for mobile devices
+#3. Better for SEO 
+
+
+#Suggestion Regarding a Default Export Warning
+#Information:
+#Anonymous arrow functions cause Fast Refresh to not preserve local component state.
+
+#Please add a name to your function, for example:
+#Before
+#export default () => <div />;
+#After
+#const Named = () => <div />;
+#export default Named;
+
+
+#Starting with Next.JS
+#In each file inside pages directory we'll be exporting React components
+#Next.js working differently than React router
+#Whenever next.js started it is reading all the files from pages folder
+#Next can distinct files by names and treat this filenames as a routes

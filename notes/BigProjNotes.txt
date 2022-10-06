@@ -74,7 +74,7 @@ $git rm -r --cached myFolder
 #In order to do that - use Secret object in kubernetes
 #Imperative approach (by using command):
 $kubectl create secrete generic jwt-secret --from-literal=<KEY>=<VALUE>
-#kubectl create secret genertic jwt-secret --from-literal=JWT_KEY=9283hdin92unc9e0j2neAASUDH
+#kubectl create secret generic jwt-secret --from-literal=JWT_KEY=9283hdin92unc9e0j2neAASUDH
 
 
 #To get Secrets
@@ -142,3 +142,6 @@ $const person = {name='Tomek',toJSON(){return 1;}}
 #So the best approach here is to use the most specific paths at the very beginning, and
 #And leave generic ones at the end (for example /?(.*) means anything)
 
+Problem with Kubernetess/Ingress
+#kubectl get ing
+#kubectl describe ing

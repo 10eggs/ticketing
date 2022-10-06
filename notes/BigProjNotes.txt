@@ -135,3 +135,10 @@ $const person = {name='Tomek',toJSON(){return 1;}}
 #Next.js working differently than React router
 #Whenever next.js started it is reading all the files from pages folder
 #Next can distinct files by names and treat this filenames as a routes
+
+#Making changes in ingress
+#We've got two services set on port 3000
+#If we've got many paths, ingress will try to match them in order
+#So the best approach here is to use the most specific paths at the very beginning, and
+#And leave generic ones at the end (for example /?(.*) means anything)
+

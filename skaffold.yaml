@@ -21,3 +21,11 @@ build:
             #Where to sync this file to inside of our running container
             #The dot means basically just take wherever the file was found from and throw it tot the corresponding container
             dest: .
+    - image: 10eggs/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .

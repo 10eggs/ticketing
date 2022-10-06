@@ -143,6 +143,8 @@ $const person = {name='Tomek',toJSON(){return 1;}}
 #And leave generic ones at the end (for example /?(.*) means anything)
 
 Problem with Kubernetess/Ingress
+#Troubleshooting: 
+#https://kubernetes.github.io/ingress-nginx/troubleshooting/
 #kubectl get ing
 #kubectl describe ing
 
@@ -153,3 +155,6 @@ Problem with Kubernetess/Ingress
 #Bootstrap - global for whole proj
 #First - create _app.js - critial to call it exactly the same
 
+
+#Check how to handle braces for functions etc
+#Short circut evaluation - &&. So we can use it as a check, x && f() , if x false we won't execute second part  

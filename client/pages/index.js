@@ -14,11 +14,17 @@ const LandingPage = ({ currentUser }) => {
 //Retrieved data is provided to our component as an object
 //We can't do any data loading on the component itself
 //On initial load our components are rendered only once, so there is no option to fetch anything in component
-LandingPage.getInitialProps = async () =>{
+LandingPage.getInitialProps = async ({req}) =>{
+  console.log(`Check headers: ${req.headers}`);
+
   if(typeof window === 'undefined'){
     //We are o the server!
     //Request should be made to http://ingress-nginx.ingres-snginx.~~
-    const { data } = await axios.get('http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser');
+    const { data } = await axios.get('http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser', 
+      {
+        headers: req.headers
+      }
+    );
     return data;
   }
   else{

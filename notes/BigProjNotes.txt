@@ -249,6 +249,22 @@ $http://ingress-nginx.ingress-nginx.svc.cluster.local
 #If it's comming from browser - request can be easily inspect
 
 #If we are doing it from server - there is no way to establish what domain it came from
+#What we can do - pass options object to axios function()
+#headers with host property
+#To pass cookies to nginx we need extract it from incoming request
+#getInitialProps will be provided with arguments - desctructing req object
+
+#Also we don't need to specify our Host directly - instead we can get our host from headers
+#This means this request in getInitialProps may be treated as proxy
+
+#243.A Reusable API client
+#Rather than having logic for handling requests from client/server in every file, we'd like to extract it into one place
+#We are going to introduce buildClient
+#So this is how it going to work
+#Incoming request (with headers) -> Logic to build an instace of axios that works on current env -> precofigured version of axios that just works
+
+
+
 
 
 

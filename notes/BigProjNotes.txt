@@ -157,4 +157,99 @@ Problem with Kubernetess/Ingress
 
 
 #Check how to handle braces for functions etc
-#Short circut evaluation - &&. So we can use it as a check, x && f() , if x false we won't execute second part  
+#Short circut evaluation - &&. So we can use it as a check, x && f() , if x false we won't execute second part
+
+#Server Side Rendering Overview
+#How to make a request to currentUser while our application is build
+#How SSR works:
+
+#1. Inspect incoming request - determine set of components to show
+#2. Call those components 'getInitialProps' static method
+#3. Render each component with data from 'getInitialPros' one time
+#4. Assamble HTML from all components, send back response
+
+
+#Fetching data during SSR
+#Differences between requesting data from server vs from the client
+#We are receiving and error while we are trying to send a request from getInitialProps method in Next.js
+#The reason why we get it is a Kubernetess
+
+
+####  SUPER CRITICAL ###
+#OPTION NO.1
+# We are running next.js inside our CONTAINER
+# So call done by the server from getInitialProps is done by node INSIDE our container,
+so if we are not specify domain (we don't need to specify domain from client, as we know ticketing.dev = 127.0.0.1:80 )
+
+#Two kind of step solution for it:
+#1. Client(in this case next.js app) direct reach service
+#In auth-depl.yaml we create a auth-srv service - So ANYTHING in our pod/inside our cluster
+#can access this service, therefore the pod that it governs access to.
+#So we can call our auth-service from next.js application, and as a domain nam we should pass service name auth-service.
+
+#NOT THE BEST APPROACH - implies that our react will know exact service name for every different thing
+#And not only svc names - also which route corresponding to which service
+
+#OPTION NO.2
+#Anytime we need to fetch data from a service inside of our kubernetes cluster,
+#our next.js app needs to reach out ingress nginx which is already running inside the cluster
+
+#We need to figure out how to make a request directly to ingress nginx when we are inside the cluster
+#Next challenge is to get information stored in cookies - as we are running on server side we don't have an acces to the browser
+#So we need to check the original,incoming request, extract cookies, and include it to call to ingress nginx
+
+###Cross Namespace Service Communication###
+#We can access another pod inside cluster by passing the cluster ip service name, i.e. http://auth-srv
+#This is valid only when we are working in the same Namespace
+
+#Namespace - is an element of kubernetess. Used for organizing different objects
+#Most of our objects are in default Namespace
+#We can't use auth-srv as it's not in default Namespace
+
+#We need to introduce crossnamespace Communication
+#Following is a pattern for domain namespace:
+$http://NAMEOFSERVICCE.NAMESPACE.svc.cluster.local
+
+#To check namespaces:
+$kubectl get namespace
+
+#To check all services in ingress-nginx namespace
+$kubectl get services -n ingress-nginx
+
+#So in our case:
+$http://ingress-nginx.ingress-nginx.svc.cluster.local
+
+#To avoid nasty naming - we need to introduce external name service
+
+#238. When is getInitialProps called?
+#So to introduce all above:
+#Request from browser -> Use baseurl in axios of just empty stringify
+#If rqeuest from next js during ssr - reach directly to auth svc // ingress-nginx
+#Need to figure out where request come from - browser or SS?
+
+#Two cases: Request from component // Request from  getIntiialProps
+#Component - Always issued from the browser so use a domain of '',
+#Might be executed from the client or the server! Needs to figure out what our env is so we can use the correct domain
+#getInitialProps MAY BE executed from browser as well (in particular circumstances)
+ 
+### REQUEST SOURCES ###
+#1. Executed on the server
+#   - hard refresh of pages
+#   - clicking link from different domain
+#   - typing url into address braces
+
+#2. Executed from one page to another while in the app
+#   - getInitialProps executed on the client
+
+#To verify where it come from- check if window object exist
+#Next thing is to check our ingress-srv.yaml file
+#ATM routing rules are specified under host ticketing.dev
+#Nginx needs to know about host which we'd like to reach
+#If we are navigate inside our app we are including domain name in the request (ticketing.dev)
+#If it's comming from browser - request can be easily inspect
+
+#If we are doing it from server - there is no way to establish what domain it came from
+
+
+
+

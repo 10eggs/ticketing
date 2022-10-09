@@ -263,7 +263,13 @@ $http://ingress-nginx.ingress-nginx.svc.cluster.local
 #So this is how it going to work
 #Incoming request (with headers) -> Logic to build an instace of axios that works on current env -> precofigured version of axios that just works
 
-
+#246. Reusable headers
+#Needs wrap up <Component/> component with an extra content
+#Rather than fetching data from two separate components we can centralize it and put this logic just inside one component
+#By doing that we can pass fetched properties all way down
+#CAUTION: At some point the the future we might have some component does needs to have some get initial props function in it
+#So if we'd got two components with getInitialProps function it may be a bit challenging for us
+#
 
 
 

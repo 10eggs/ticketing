@@ -1,11 +1,11 @@
- import axios from 'axios';
+import buildClient from '../api/build-client';
 
 const LandingPage = ({ currentUser }) => {
   //Browser
   // console.log('I am in the component ', object provided by getInitialProps)
   console.log(currentUser);
   
-  return <h1>LANDING</h1>;
+  return currentUser ? <h1>You are signed in!</h1> : <h1>You are not signed in</h1>
 }
 
 //Specific for Next.js
@@ -14,25 +14,14 @@ const LandingPage = ({ currentUser }) => {
 //Retrieved data is provided to our component as an object
 //We can't do any data loading on the component itself
 //On initial load our components are rendered only once, so there is no option to fetch anything in component
-LandingPage.getInitialProps = async ({req}) =>{
-  console.log(`Check headers: ${req.headers}`);
 
-  if(typeof window === 'undefined'){
-    //We are o the server!
-    //Request should be made to http://ingress-nginx.ingres-snginx.~~
-    const { data } = await axios.get('http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser', 
-      {
-        headers: req.headers
-      }
-    );
-    return data;
-  }
-  else{
-    //We are on the browser!
-    //Request can be made with a base url of ''
-    const {data} = await axios.get('/api/users/currentuser')
-    return data;
-  }
+//If we are duplicating things like here (we can use 'req' and 'req' in both getInitialProps and buildClient) we are receiving entire argument to the
+//next function (build client). So first argument to this function(getInitialProps) we usually refer to as context.
+
+
+LandingPage.getInitialProps = async (context) =>{
+  const {data} = await buildClient(context).get('/api/users/currentuser');
+  return data;
 }
   
 export default LandingPage;

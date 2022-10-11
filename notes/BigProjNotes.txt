@@ -269,9 +269,36 @@ $http://ingress-nginx.ingress-nginx.svc.cluster.local
 #By doing that we can pass fetched properties all way down
 #CAUTION: At some point the the future we might have some component does needs to have some get initial props function in it
 #So if we'd got two components with getInitialProps function it may be a bit challenging for us
+
+#247. Moving getInitialProps
+#So now we are moving our getInitialProps from index to AppComponent.
+#We need to make sure that we build up our axios client because we are going to run into
+#all these same issues around problems with our domain or the base url, depend upon whether running client/server 
+#So need to import our build client custom functionality
+
+#248. Issue with Custom App GetInitialProps
+#It turns out that there are some problem with Custom App (_app) and getInitialProps
+#In _app we are not working in the page - we are working in custom app component which is wrapping our page
+
+#In Next.js we've got the differences between arguments passed to getInitialProps page and to custom component
+#Arguments provided to the page are different than custom app component
+#Page Component:
+$PageComponent.geInitialProps(context) where context === {req,res}
+#Custom App Component
+#CustomAppComponent.getInitialProps(context) where context === {Component, ctx: {req,res}}
+
+#Unfortunately when we tie get initial props to app component, you get initial props tie to app component do not get automatically invoked anymore
+#We are passing down getInitialProps from AppComponent
+
+#So in AppComponent.getInitialProps we've got an access to Landing Page component through context argument (first argument of this function)
+#We are adding quick if statement to verify if page has an initial props defined - if not then pass empty object;
+
+#250. Passing Props through
+#So the information fetched in getInitialProps are papsed to the ApPComponent
+
+#253. Signing out
+#This call needs to be done from browser rather than server (so it can't be invoked from getInitialProps)
+#Server doesn't know what to do with any cookies
+#So call needs to be done from Component
 #
-
-
-
-
 

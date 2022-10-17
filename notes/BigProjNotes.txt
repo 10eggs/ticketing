@@ -378,3 +378,8 @@ $
 #5. Write k8s file for deployment, service
 #6. Update skaffold.yaml to do file sync for ticketing
 #7. Write k8s file for Mongodb deployment, service
+
+
+#269. Mongo Connection URI
+#In tickets-depl add new env variable for mongo URI
+#

@@ -7,17 +7,21 @@ const start = async()=>{
     throw new Error('JWT_KEY must be defined');
   }
 
+  if(!process.env.MONGO_URI){
+    throw new Error('MONGO_URI must be defined');
+  }
+
   try{
-    await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
-    console.log('Connected to MongoDB');
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log('Connected to MongoDB - TICKETS');
   }
   catch(err){
-    console.log('Can not connect to MongoDB!')
+    console.log('Can not connect to MongoDB! - TICKETS')
     console.error(err)
   }
 
   app.listen(3000, ()=>{
-    console.log(`AUTH SERVICE: Listening on port 3000!!!`);
+    console.log(`TICKETS SERVICE: Listening on port 3000!!!`);
   });
 };
 

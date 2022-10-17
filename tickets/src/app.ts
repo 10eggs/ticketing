@@ -1,8 +1,9 @@
 import express from 'express'
 import 'express-async-errors'
 import { json } from 'body-parser'
-import { errorHandler, NotFoundError } from '@supafellas/common';
+import { errorHandler, NotFoundError, currentUser} from '@supafellas/common';
 import cookieSession from 'cookie-session'; 
+import { createTicketRouter } from './routes/new';
 
 const app = express();
 //to add https connection
@@ -19,6 +20,11 @@ app.use(
     secure: process.env.NODE_ENV !== 'test'
   })
 )
+
+app.use(currentUser);
+
+
+app.use(createTicketRouter);
 
 
 //There are differences between how express handling async errors. We are handling it by using express-async-errors.

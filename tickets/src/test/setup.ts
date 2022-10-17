@@ -2,32 +2,46 @@ import {MongoMemoryServer} from 'mongodb-memory-server'
 import mongoose from 'mongoose';
 import request from 'supertest';
 import {app} from '../app';
+import jwt from 'jsonwebtoken';
 
 //global, as this is implemented in setup.ts file it will be present only in test environment
 
 //For fix:
 //Element implicitly has an 'any' type because type 'typeof globalThis' has no index signature.ts(7017)
 
+//After refactoring it'll be like this:
+//declare global {
+// var signin: ()=>{string[]};
+//}
 
 declare global{
-  var signin: () => Promise<string[]>;
+  var signin: () => string[];
 }
 
+
 //Helper function
-global.signin = async()=>{
-  const email = 'email@email.com';
-  const password = 'password';
+global.signin = ()=>{
+  //1. Build a JWT payload. {id, email}
+    const payload = {
+      id: '1232198u9sdc',
+      email: 'test@test.com'
+    };
 
-  const response = await request(app)
-    .post('/api/users/signup')
-    .send({
-      email,password
-    })
-    .expect(201);
+    //2. Create JWT
+    const token = jwt.sign(payload,process.env.JWT_KEY!);
 
-    const cookie = response.get('Set-Cookie');
+    //3. Build Session Object {jwt: MY_JWT}
+    const session = {jwt: token};
 
-    return cookie;
+    //4. Turn session into JSON
+    const sessionJSON = JSON.stringify(session);
+    
+    //5. Take JSON and encode it as base64
+    const base64 = Buffer.from(sessionJSON).toString('base64');
+
+    //6. return string thats the cookie with the encoded data
+    return [`express=${base64}`];
+
 }
 
 let mongo: any;

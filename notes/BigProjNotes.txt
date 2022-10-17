@@ -382,4 +382,18 @@ $
 
 #269. Mongo Connection URI
 #In tickets-depl add new env variable for mongo URI
-#
+
+#271. Test-First approach
+# Writing some tests before we start writing implementation
+# For ticketing we want to have a currentUser handler in place just for two routes
+# We can pass it as a second argument for post() method
+
+#274. Fake AUTHENTICATION
+#We cant use our pre-built authenticaiton helper method from Auth Service, as we want to stay in tickets service context
+#A bit refactoring for global.signin
+
+#Twilio
+#SendGrid
+#base64decode.org
+
+#When we are working with supertest we need to put all cookies into an array

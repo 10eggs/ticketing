@@ -9,6 +9,8 @@ export default ({url,method,body, onSuccess})=>{
     setErrors(null);
     const response = await axios[method](url,body);
 
+    //todelete
+    console.log('Response from doRequest '+response);
     if(onSuccess){
       onSuccess(response.data);
     }

@@ -302,3 +302,79 @@ $PageComponent.geInitialProps(context) where context === {req,res}
 #So call needs to be done from Component
 #
 
+#255. Share logic between services
+#Options:
+#1. Copy/Paste
+#2. Git submodule (challenging)
+#3. NPM Package
+
+#257. NPM Organizations
+#NPM Public registry
+#NPM Package inside Organization
+#NPM Private Registry
+
+#NPM login: 10eggz
+org: supafellas
+
+#258. Publishing NPM Modules
+#This is where package.json name & version become important
+#Format for name: 
+#@nameoforganization/nameofpackage
+
+#Add package: npm publish --access public
+#If error - npm login
+
+#259. Project Setup
+#So we might find problems with our TS implementation
+#Hence our common library will be written as Typescript and published as javascript
+#To do that we need to install a few dependencies
+$tsc --init
+$npm install typescript del-cli --save-dev
+#const delay = t => new Promise(resolve => setTimeout(resolve, t));
+
+#buid command - run tsc compiler, find index.ts file and turn it in js code
+#Following changes was done for tsconfig.json:
+$uncomment declaration
+#It makes sure that when we turn our ts into js its going to also generate a type definition file, 
+#so even if we install this module into a service that uses ts, we'll still have a type definition file
+
+$uncomment outdir
+#After generating our js code we're going to take everything got generated and stick it into a new folder inside of our common dir called build
+
+#also del-cli tool was installed to make sure that every time when we are building our project we are cleaning build directory
+
+#261. An Easy Publish command
+#This 'main' path in package.json is defining exactly what file we import whenever we attempt to import this module
+#So changes are made for main and types property. Also "files" was added - tell npm what set of files inside of our project we want to
+#get included inside the final published version of our package
+
+#When we are doing changes for our module we can change version manually in package.json or use built-in commands either
+$npm version patch
+
+#Optionally - read about npm versioning sematnic
+#After patch incremented:
+$npm run build
+#npm publish
+
+#263. Updating Import Statements
+#1. Publish changes (by running our script)
+#npm update <name_of_module>
+
+
+#ORG name: @supafellas/common
+#How do we know that our container is running the correct version of that dependency?
+#Start shell inside the pod
+$kubectl exec -it <name-of-service> shell
+$
+
+
+//~~    TICKETING Service   ~~//
+#Steps to prepare another service:
+
+#1. Create package.json, install dependencies,
+#2. Write Dockerfile
+#3. Create index.ts to run project
+#4. Build image, push to docker hub
+#5. Write k8s file for deployment, service
+#6. Update skaffold.yaml to do file sync for ticketing
+#7. Write k8s file for Mongodb deployment, service

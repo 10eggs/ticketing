@@ -113,3 +113,6 @@ JiT has access to dynamic runtime information, that's why it helps you optimize 
 V8 - TurboFan (JiT)
 JiT - Compilation in Run-time, allow for Optimization
 
+
+
+window.queueMicrotask ?

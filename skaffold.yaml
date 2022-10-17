@@ -29,3 +29,12 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
+    - image: 10eggs/tickets
+      #Contains all the code for this image
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .

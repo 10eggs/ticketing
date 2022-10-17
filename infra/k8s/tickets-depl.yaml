@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tickets-depl
+spec:
+  replicas: 1
+  #Tell the DEPLOYMENT object How to FIND all pods is going to create
+  selector: 
+    matchLabels:
+      app: tickets
+  #Tell the DEPLOYMENT object how to CREATE all pods
+  template:
+    metadata:
+      labels:
+        app: tickets
+    #How to behave
+    spec:
+      containers:
+        #This name is only for logging purposes
+        - name: tickets
+          image: 10eggs/tickets
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tickets-srv
+#Not specified = ClusterIP by default
+spec:
+  #This is going to tell this service how to find the set of pods that is supposed to govern to (template/metadata/labels/)
+  selector:
+    app: tickets
+  ports:
+    - name: tickets
+      protocol: TCP
+      port: 3000
+      #As container(tickets) is listening on 3000
+      targetPort: 3000 
+
+
+

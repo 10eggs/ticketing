@@ -40,7 +40,7 @@ global.signin = ()=>{
     const base64 = Buffer.from(sessionJSON).toString('base64');
 
     //6. return string thats the cookie with the encoded data
-    return [`express=${base64}`];
+    return [`session=${base64}`];
 
 }
 

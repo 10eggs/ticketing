@@ -1,10 +1,21 @@
 import express, { Request, Response } from 'express';
-import { requireAuth } from '@supafellas/common';
+import { body } from 'express-validator';
+import { requireAuth, validateRequest} from '@supafellas/common';
 
 const router = express.Router();
 
-router.post('/api/tickets', requireAuth, (req: Request, res: Response)=>{
-  res.status(200);
+//Fail ASAP when user not validated
+//not - empty 
+router.post('/api/tickets', requireAuth, [
+  body('title')
+    .not()
+    .isEmpty()
+    .withMessage('Title is required'),
+  body('price')
+    .isFloat({gt: 0})
+    .withMessage('Price must be greater than 0')
+],validateRequest, (req: Request, res: Response)=>{
+  res.sendStatus(200);
 
 
 })

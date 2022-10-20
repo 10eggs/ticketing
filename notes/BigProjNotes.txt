@@ -397,3 +397,31 @@ $
 #base64decode.org
 
 #When we are working with supertest we need to put all cookies into an array
+
+#278. Validating Title and Price
+#To validate request we need to import body() from 'express-valdiator'
+# .not() - check if provided
+# .isEmpty() - provided by empty
+#.
+
+#280. Reminder On Mongoose with Typescript
+#Create model in typescript
+#1. Add 3 interfaces:
+#   a)UserAttr - describe properties required for create this record
+#   b)UserDoc - describe what properties this record will have after save
+#   c)UserModel - all properties which we'd want to assign to the model
+#2. Model represent entire collection of data
+#3. Document represents one single record
+#4. Schema - all properties we want it
+#5. Mongo save record with '_id' (in common dbs it is use to be id)
+#6. add pre save hook (as we are hashing password in auth)
+#7. We defined build function - entire goal of this was to just allow typescript to do some validation
+#or type checking on the properties we were trying to use to create a new record
+#that was the only reason we made Build
+#whenever we tried to create a record directly by using that user model, theres not any type checking that goes on
+#with the attributes we pass in
+#that's why we need this build thing
+#8. Create model, export it
+
+
+

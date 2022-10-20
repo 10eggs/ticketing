@@ -24,14 +24,61 @@ it('returns a status other than 401 when user is signed in', async()=>{
     .set('Cookie',global.signin())
     .send({});
 
-    console.log(`Response from status ${response.status}`);
-    // expect(response.status).not.toEqual(401);
+
+    expect(response.status).not.toEqual(401);
+
 },10000)
 
 it('returns an error if an invalid title is provided', async() =>{
-  
-})
+   await request(app)
+    .post('/api/tickets')
+    .set('Cookie',global.signin())
+    .send({
+      title: '',
+      price: 100
+    })
+    .expect(400);
+
+    await request(app)
+    .post('/api/tickets')
+    .set('Cookie', global.signin())
+    .send({
+      price:10
+    })
+    .expect(400);
+},10000)
+
+it('returns an error if an invalid price is provided', async() =>{
+  await request(app)
+   .post('/api/tickets')
+   .set('Cookie', global.signin())
+   .send({
+     title: 'asdk',
+     price: -100
+   })
+   .expect(400);
+
+   await request(app)
+   .post('/api/tickets')
+   .set('Cookie', global.signin())
+   .send({
+    title: 'asdk'
+   })
+   .expect(400);
+},10000)
+
 
 it('creates ticket with valid parameters', async() =>{
-   
-})
+
+  //Add check to make sure a ticket saved
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie',global.signin())
+    .send({
+      title:'This is a title',
+      price: 10
+    })
+    .expect(200);
+},15000)
+
+it('')

@@ -22,8 +22,9 @@ declare global{
 //Helper function
 global.signin = ()=>{
   //1. Build a JWT payload. {id, email}
+  //Instead of hardcoded ID, we are switching to random
     const payload = {
-      id: '1232198u9sdc',
+      id: new mongoose.Types.ObjectId().toHexString(),
       email: 'test@test.com'
     };
 

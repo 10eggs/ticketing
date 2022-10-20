@@ -1,5 +1,6 @@
 import request from 'supertest';
 import { app } from '../../app'
+import { Ticket } from '../../models/ticket';
 
 jest.useRealTimers(); 
 
@@ -70,15 +71,28 @@ it('returns an error if an invalid price is provided', async() =>{
 
 it('creates ticket with valid parameters', async() =>{
 
+  //Declare test variables here
+
+  let title = 'This is title';
+  //Let - as we reassign this variable later
+  let tickets = await Ticket.find({});
+  let price = 10;
+
+  expect(tickets.length).toEqual(0);
+  
   //Add check to make sure a ticket saved
   await request(app)
     .post('/api/tickets')
     .set('Cookie',global.signin())
     .send({
-      title:'This is a title',
-      price: 10
+      title,
+      price
     })
-    .expect(200);
-},15000)
+    .expect(201);
 
-it('')
+    tickets = await Ticket.find({});
+    expect(tickets.length).toEqual(1);
+    expect(tickets[0].title).toEqual(title);
+    expect(tickets[0].price).toEqual(price);
+
+},15000)

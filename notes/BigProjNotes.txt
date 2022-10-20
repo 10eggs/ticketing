@@ -423,5 +423,14 @@ $
 #that's why we need this build thing
 #8. Create model, export it
 
+#281. Creation via Route handler
+#Interesting part here is that when we are creating our record in route handler (ticket record)
+#We have an access to currentUser property, as it was determined by middleware before it came to route handler
+#requireAuth is checking if user is authenticated, however TS complaing on req.currentUser as it can't determine if currentUser exist or not
+#To disable this warning - use exclamation mark after property name
+# BACKTICK -> `
+#For express default status is 200
 
 
+#284. Trying to figure out why we are getting error 400 (we are expect to have 404)
+#Instead of change common module we are doing changes in node modules directly (not recommended);

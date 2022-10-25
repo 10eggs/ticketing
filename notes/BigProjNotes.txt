@@ -434,3 +434,53 @@ $
 
 #284. Trying to figure out why we are getting error 400 (we are expect to have 404)
 #Instead of change common module we are doing changes in node modules directly (not recommended);
+
+
+non bene pro toto libertas venditur
+
+
+#293. NATS Streaming Server
+#NATS (event sharing) and NATS Streaming Server - different things
+#NATS Streaming Server is build on top of NATS
+
+#When we have a command which we want to run when container is up and running, then we are adding it in spec/container/args[] as an array
+
+#What NATS Streaming Server?
+#Differences between custom implementatios and NATS Streaming Server
+#We are using CHANNELS(topics) in NATS
+
+#To Interact with NATS Streaming we'll need to use client library (node-nats-streaming)
+#Apply ts config by using tsc --init
+
+#To connect to NATS Pod we will send a message to ingress-nginx (nats working inside kubernetess)
+#Easier way is to expose NATS pod by using NodePort Service
+#Third option - stricly for dev purposes
+#Run k8s command inside the cluster to port-forward to the specific pod
+
+//first port is port on my local machine, second port is from NATS pod 
+#kubectl port-forward nats-depl-87ff64fc5-6znrt 4222:4222
+
+#Publishing Events
+
+#In NATS we can't share directly plain js objects, we need to pares it to json (string);
+#In the upcoming lecture, I will show typing rs in my terminal to restart the ts-node-dev instance.
+#The ts-node-dev library recently released a change that disables this restart behavior by default.
+#To enable it, you need to update the two scripts we added to the package.json file.  Update the two scripts to the following:
+
+#ctrl+shift+5 - split terminal
+#alt+left arrow/right arrow <- switch
+#to restart node.dev type $rs
+
+#Important methods from message
+//Channel
+$getSubject();
+
+#Msg number
+$getSequence();
+
+#Actual data included in msg
+$getData();
+
+#Second paramter for nats.connect is clientId
+#NATS streaming server never wants to see duplicate client id
+#

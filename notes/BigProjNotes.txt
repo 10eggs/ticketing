@@ -575,4 +575,23 @@ $getData();
 #IF our business logic fail in onMessage handler, we want to just allow this message to time out
 #to fail delivery essentially so Nats attemps to re deliver it automatically at some point
 #If everything is OK then msg.Ack() needs to be invoked
-#
+
+
+#321. Lev TS for listener validation
+#Need to find a way to match subject with message data (to not allow user to put wrong message against particular channel)
+#We'll end up with strong mapping between subject names and event data
+
+#Introduce ENUMS
+#Enum for every subject
+#Interface for any event
+
+
+#328. Custom Publisher
+#330. Awaiting event publication
+#publish funciton needs to return promise. Inside that promise function we're going to resolve it when callback function is invoked,
+#and reject if callback function is invoked with an error.
+
+#Downsize of common module is that all pub/sub generics are written in TS and can be consumed only by TS Code.
+#Alternatives are JSON Schema, Protobuf, Apache Avro
+
+#It's worth to re-run NATS to clean rubbish data

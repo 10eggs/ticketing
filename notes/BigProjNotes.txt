@@ -595,3 +595,13 @@ $getData();
 #Alternatives are JSON Schema, Protobuf, Apache Avro
 
 #It's worth to re-run NATS to clean rubbish data
+#For publisher subject we need this type annotation to make sure that we'll never try to change the value of subject
+#Data to event shold be from DB not from the request (to stay consistent with presave/save hooks in mongo db)
+
+#337 - SINGLETON for NATS client
+#When we using mongoose it knows that we are connected to instance of mongodb, that's why from every location in our project (dir)
+#We are speaking to single instance of mongo db
+
+#In case of NATS client is a bit different as NATS don't know if any connection was established already
+#We need to share NATS client across all
+

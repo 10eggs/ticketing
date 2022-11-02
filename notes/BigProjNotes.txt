@@ -605,3 +605,18 @@ $getData();
 #In case of NATS client is a bit different as NATS don't know if any connection was established already
 #We need to share NATS client across all
 
+#341. Singleton implementation
+#Question mark for property which may be initialize later on
+
+#natsWrapper started with lower case as this is one and only instance of this class (singleton)
+#cluster id - in nats-depl you can find flag -cid which is cluster id
+#for natsWrapper url of the client will be an url to the service which is governed by nats-depl
+#metadata - nats-srv
+#port - 4222
+
+
+#343. Every time when our process is about to be stopped (SIGINT or SIGTERM) we want to stop
+#WE dont want to have process.exit() in one of hidden method which turns off our application completely (as we had for our listener example)
+#We should not invoke process.exit() from nats-wrapper class - instead we can close it from index();
+
+#

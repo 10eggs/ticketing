@@ -3,10 +3,11 @@ import 'express-async-errors'
 import { json } from 'body-parser'
 import { errorHandler, NotFoundError, currentUser} from '@supafellas/common';
 import cookieSession from 'cookie-session'; 
-import { createTicketRouter } from './routes/new';
-import { showTicketRouter } from './routes/show';
-import { indexTicketRouter } from './routes/index';
-import { updateTicketRouter } from './routes/update';
+import { deleteOrderRouter } from '../routes/delete';
+import { indexOrderRouter } from '../routes/index';
+import { newOrderRouter } from '../routes/new';
+import { showOrderRouter } from '../routes/show';
+
 
 const app = express();
 //to add https connection
@@ -27,10 +28,10 @@ app.use(
 app.use(currentUser);
 
 
-app.use(createTicketRouter);
-app.use(showTicketRouter);
-app.use(indexTicketRouter);
-app.use(updateTicketRouter);
+app.use(deleteOrderRouter);
+app.use(indexOrderRouter);
+app.use(newOrderRouter);
+app.use(showOrderRouter);
 
 //There are differences between how express handling async errors. We are handling it by using express-async-errors.
 //It doesn't require to use next(), also we need to import this package only in one place in our code, do not need to use it in handlers

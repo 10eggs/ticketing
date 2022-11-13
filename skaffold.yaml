@@ -38,3 +38,12 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: 10eggs/orders
+      #Contains all the code for this image
+      context: orders
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .

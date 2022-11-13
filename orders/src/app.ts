@@ -1,12 +1,12 @@
-import express from 'express'
+ import express from 'express'
 import 'express-async-errors'
 import { json } from 'body-parser'
 import { errorHandler, NotFoundError, currentUser} from '@supafellas/common';
 import cookieSession from 'cookie-session'; 
-import { deleteOrderRouter } from '../routes/delete';
-import { indexOrderRouter } from '../routes/index';
-import { newOrderRouter } from '../routes/new';
-import { showOrderRouter } from '../routes/show';
+import { deleteOrderRouter } from './routes/delete';
+import { indexOrderRouter } from './routes/index';
+import { newOrderRouter } from './routes/new';
+import { showOrderRouter } from './routes/show';
 
 
 const app = express();

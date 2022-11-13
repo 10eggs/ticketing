@@ -651,4 +651,28 @@ will have separate NATS client)
 
 
 #355. The Oreder Service
-#
+
+#360. Subtle Service Coupling
+#Express allow us to use validators (by express-validator). When we are using requireAuth in our route, we need to put all validator
+#inside the array
+
+#WE WILL IMPLEMENT IT BUT IT IS NOT THE BEST PRACTICE!
+#In order service we don't want to implement validation agaisnt ticketid type eq MongoGUID, as this would be a coupling to Ticket Service (we may
+# want to replace this service as some point by another service, that's why we need to stay agnostic)
+
+
+#361. Associating Orders and tickets
+#Mongoose ref/population feature
+
+#cmd+shift+p = command pallete -> reload window
+
+#365. Three potential scenarios:
+#1. To associate an existing Order and Ticket together;
+#2. To associate an existing Ticket with a *new* Order
+#3. To fetch an existing Order from the databse with its associated Ticket
+
+
+#366. Defining the Ticket Model
+#We will have different definition of what ticket is between different services
+#The reason why we are handling it in this way is that order services does not need to know all informations about service
+#There is just few of them which we take care off  

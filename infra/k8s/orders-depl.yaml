@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tickets-depl
+  name: orders-depl
 spec:
   replicas: 1
   #Tell the DEPLOYMENT object How to FIND all pods is going to create
   selector: 
     matchLabels:
-      app: tickets
+      app: orders
   #Tell the DEPLOYMENT object how to CREATE all pods
   template:
     metadata:
       labels:
-        app: tickets
+        app: orders
     #How to behave
     spec:
       containers:
         #This name is only for logging purposes
-        - name: tickets
-          image: 10eggs/tickets
+        - name: orders
+          image: 10eggs/orders
           env:
             - name: NATS_URL
               value: 'http://mats-srv:4222'
@@ -29,7 +29,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: MONGO_URI
-              value: 'mongodb://tickets-mongo-srv:27017/tickets'
+              value: 'mongodb://orders-mongo-srv:27017/orders'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -39,14 +39,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tickets-srv
+  name: orders-srv
 #Not specified = ClusterIP by default
 spec:
   #This is going to tell this service how to find the set of pods that is supposed to govern to (template/metadata/labels/)
   selector:
-    app: tickets
+    app: orders
   ports:
-    - name: tickets
+    - name: orders
       protocol: TCP
       port: 3000
       #As container(tickets) is listening on 3000

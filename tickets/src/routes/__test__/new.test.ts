@@ -1,7 +1,11 @@
 import request from 'supertest';
 import { app } from '../../app'
 import { Ticket } from '../../models/ticket';
+import { natsWrapper } from '../../nats-wrapper';
 
+
+
+ 
 jest.useRealTimers(); 
 
 it('has a route handler listening to /api/tickets for post request', async() =>{
@@ -96,3 +100,23 @@ it('creates ticket with valid parameters', async() =>{
     expect(tickets[0].price).toEqual(price);
 
 },15000)
+
+
+it('publishes an event', async()=>{
+
+  let title = 'This is title';
+  let price = 10;
+
+  
+  //Add check to make sure a ticket saved
+  await request(app)
+    .post('/api/tickets')
+    .set('Cookie',global.signin())
+    .send({
+      title,
+      price
+    })
+    .expect(201);
+    expect(natsWrapper.client.publish).toHaveBeenCalled();
+    
+  });

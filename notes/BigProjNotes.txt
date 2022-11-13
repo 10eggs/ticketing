@@ -619,4 +619,36 @@ $getData();
 #WE dont want to have process.exit() in one of hidden method which turns off our application completely (as we had for our listener example)
 #We should not invoke process.exit() from nats-wrapper class - instead we can close it from index();
 
+#347. Event Bus
+#Rather than emitting event to event bus we'd like to capture this event in separate database
+#In separate process or some separate piece of code, something outside of our route handler we can have some code to watch Event Collection
+#And it takes note every time when we emit event to it 
+
+#Also we need to have a mechanism which prevent situation where DB with record is updated, but Event is not 
+#If this is a case then we need to have some way to do UNDO for DB transaction
+#We need to use Database TRANSACTION
+
+#348. Fixing tests
+#We are using jest redirect import feature (we don't want to import NATSWrapper)
+#Instead we are going to import fake copy of NatsWrapper
+
+
+#352, Ensuring Mock Invocations
+#Rest mock data before every single test
+
+
+#353. NATS Env Variables
+#Need to add more environment variables to ticket-deployment
+#ClusterId,ClientId,Url for NATS
+#Problem with client id - we can't have same client id if we want to run ticketig service multiple times. ClientID
+#needs to be unique for every client that we have connecting to NATS
+
+#At some point in the time in the future it would be nice to be able to look at logs from NATS server and recognize what NATS clients
+#were connected when. So NATS Client Id should match our running service. We want to know what each copy of ticket service is doing (every replica
+will have separate NATS client)
+#We want to use name of the pod as a client id
+#NATS_CLIENT_ID is getting value from metadata.name
+
+
+#355. The Oreder Service
 #

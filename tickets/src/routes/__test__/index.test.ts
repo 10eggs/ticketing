@@ -1,7 +1,6 @@
 import request from 'supertest';
 import { app } from '../../app'
 
-
 const createTicket = () =>{
   let title = 'This is a title';
   let price = 10;

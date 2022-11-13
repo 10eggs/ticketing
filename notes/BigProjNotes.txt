@@ -676,3 +676,20 @@ will have separate NATS client)
 #We will have different definition of what ticket is between different services
 #The reason why we are handling it in this way is that order services does not need to know all informations about service
 #There is just few of them which we take care off  
+
+
+#368. $ - special mongo operator 
+#369. Convenience Document methods
+#In Ticket model we'll add an extra methods
+
+#ticketSchema.statics - adding method directly to the ticket model itself.
+#Ticket object - allow us to get access to the overall collection
+
+#If you want to add a new method to the document - ticketSchema.methods
+#for methods we are using function keyword instead of arrow function ()
+#We are going to use function keyword as mongoose is built in old-fashioned way (? :D) - we need to use this keyword to get access to the object
+# so this will point to the ticket document we just called isReserved on
+
+#To have one source of OrderStatus we are not going to import OrderStatus separately in Order, ticket, and new handler
+#We are importing OrderStatus to our Order model, and then exporting it again - this propagation allow us to keep codebase cleaner,
+#Every related component is sticked to Order model

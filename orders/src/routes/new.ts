@@ -9,13 +9,12 @@ import { Order } from '../models/order';
 
 const router = express.Router();
 
+const EXPIRATION_WINDOW_SECONDS = 15*60;
+
 router.post('/api/orders', requireAuth, [
   body('ticketId')
     .not()
     .isEmpty()
-    .custom((input: string)=>{
-      mongoose.Types.ObjectId.isValid(input)
-    }) 
     .withMessage('TicketId must be provied')
 ],validateRequest, async (req: Request, res: Response)=>{
 
@@ -24,6 +23,7 @@ router.post('/api/orders', requireAuth, [
 
   const ticket = await Ticket.findById(ticketId);
   if(!ticket){
+    console.log('OPS!');
     throw new NotFoundError();
   }
 
@@ -36,16 +36,23 @@ router.post('/api/orders', requireAuth, [
     throw new BadRequestError('Ticket is already ordered.');
   }
 
-
-
   // Calc expiration
+  const expiration = new Date();
+  expiration.setSeconds(expiration.getSeconds()+EXPIRATION_WINDOW_SECONDS);
 
   // Build the order and save it to the db
+  const order = Order.build({
+    userId: req.currentUser!.id,
+    status: OrderStatus.Created,
+    expiresAt: expiration,
+    //Line below is a shortcut for ticket:ticket
+    ticket
+  })
 
-  // Publish an event saying that an order was created
+  await order.save();
+  //Publish an event saying that an order was created
 
-
-  res.send({});
+  res.status(201).send(order);
 })
 
 export { router as newOrderRouter };

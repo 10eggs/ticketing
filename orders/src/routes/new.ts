@@ -23,7 +23,6 @@ router.post('/api/orders', requireAuth, [
 
   const ticket = await Ticket.findById(ticketId);
   if(!ticket){
-    console.log('OPS!');
     throw new NotFoundError();
   }
 

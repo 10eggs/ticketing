@@ -693,3 +693,21 @@ will have separate NATS client)
 #To have one source of OrderStatus we are not going to import OrderStatus separately in Order, ticket, and new handler
 #We are importing OrderStatus to our Order model, and then exporting it again - this propagation allow us to keep codebase cleaner,
 #Every related component is sticked to Order model
+
+
+test against mongodb objectid
+// .custom((input: string)=>{
+//   // mongoose.Types.ObjectId.isValid(input)
+//   // mongoose.isValidObjectId(input)
+// }) 
+
+
+#377. Fetching a User's Orders
+# To get related tickets (related to order) we will be using population system in Mongoose
+# For test in index.test.ts we want to create an order for two tickets as a single user
+# to do that we are sending two requests - reserve t1 and reserve t2
+# In test to do validation we'd like to do some comparison on responses
+# Problem with naming - should we call them 'response'?
+# solution - destruct response and rename it in one line by using { responsePropertyName : variableName}
+
+#ctrl+shift+[ or ] - expand/collapse code region

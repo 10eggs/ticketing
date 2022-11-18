@@ -721,3 +721,29 @@ test against mongodb objectid
 
 #Mongo is turning our date object into the string automatically - we don't want to do that as it creates timezone stamp. 
 #Instead we'd like to have utc() timezone
+#After correct assertion in our test it is a good practice to switch assertion to check if true eq true. (expect() should pass, not.expect() should fail)
+
+#IT'S TIME FOR LISTENERS!
+#REMINDERS:
+
+#1. Queue group name
+# Listeners are listening of channel, eg. ticket:created
+# Two Listeners are joining queue-group called order-service
+# Be being a member of this group that ensures that any time any event comes into this channel
+# This event will be send only to one member of this queue group
+
+#Event['data'] - we created an interface which definies what data will need to be passed to 'onMessage'
+
+#Message msg - we are carry about ack() method there 
+#We are calling ack when we SUCCESSFULLY  process a message or event
+
+
+#396 Simple onMessage implementation
+# TicketCreatedEvent - > order service listening because we need to store this ticket in local storage for order service. Data replication
+# between services
+# This allow us to not depend on other service as we've got all data in orders service
+# We are facing an issue with ticketid - it is randomly generated, however we just want to have a link between these two tickets, ( for both data sources )
+# To do that we need to update TicketModel file
+
+
+#Run script to update package in all project directories

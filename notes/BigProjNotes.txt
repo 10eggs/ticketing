@@ -711,3 +711,10 @@ test against mongodb objectid
 # solution - destruct response and rename it in one line by using { responsePropertyName : variableName}
 
 #ctrl+shift+[ or ] - expand/collapse code region
+
+
+#384. Orders Service Events
+#In order-created-event we are setting expiresAt as a string (not date) type as we'd like to do manual check for timezone etc.
+#SIDE NOTE - in error-handler middleware I removed following link:
+//http://expressjs.com/en/guide/error-handling.html
+//

@@ -1,6 +1,6 @@
 import { Publisher, OrderCancelledEvent, Subjects } from '@supafellas/common';
 
-export class OrderCreatedPubliusher extends Publisher<OrderCancelledEvent>{
+export class OrderCancelledPublisher extends Publisher<OrderCancelledEvent>{
   subject: Subjects.OrderCancelled = Subjects.OrderCancelled;
 }
 

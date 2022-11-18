@@ -717,4 +717,7 @@ test against mongodb objectid
 #In order-created-event we are setting expiresAt as a string (not date) type as we'd like to do manual check for timezone etc.
 #SIDE NOTE - in error-handler middleware I removed following link:
 //http://expressjs.com/en/guide/error-handling.html
-//
+
+
+#Mongo is turning our date object into the string automatically - we don't want to do that as it creates timezone stamp. 
+#Instead we'd like to have utc() timezone

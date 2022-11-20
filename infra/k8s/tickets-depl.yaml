@@ -21,7 +21,7 @@ spec:
           image: 10eggs/tickets
           env:
             - name: NATS_URL
-              value: 'http://mats-srv:4222'
+              value: 'http://nats-srv:4222'
             - name: NATS_CLUSTER_ID
               value: ticketing
             - name: NATS_CLIENT_ID

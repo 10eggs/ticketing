@@ -24,6 +24,11 @@ const start = async()=>{
   }
 
   try{
+
+    console.log(`NATS CLUSTER ID: ${process.env.NATS_CLUSTER_ID}`)
+    console.log(`NATS CLIENT ID: ${process.env.NATS_CLIENT_ID}`)
+    console.log(`NATS URL: ${process.env.NATS_URL}`)
+
     await natsWrapper.connect(
       process.env.NATS_CLUSTER_ID,
       process.env.NATS_CLIENT_ID,
@@ -39,8 +44,13 @@ const start = async()=>{
     process.on('SIGTERM', () => {
       natsWrapper.client.close();
     })
+  }
+  catch(err){
+    console.log(`Can not connect to NATS server - ${err}`);
+  }
 
-
+  try{
+    //process.env.MONGO_URI
     await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to MongoDB - TICKETS');
   }

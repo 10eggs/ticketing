@@ -48,16 +48,16 @@ const start = async()=>{
 
     
 
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('Connected to MongoDB - TICKETS');
+    await mongoose.connect(process.env.MONGO_URI, {});
+    console.log('Connected to MongoDB - ORDERS');
   }
   catch(err){
-    console.log('Can not connect to MongoDB! - TICKETS')
+    console.log('Can not connect to MongoDB! - ORDERS')
     console.error(err)
   }
 
   app.listen(3000, ()=>{
-    console.log(`TICKETS SERVICE: Listening on port 3000!!!`);
+    console.log(`ORDERS SERVICE: Listening on port 3000!!!`);
   });
 };
 

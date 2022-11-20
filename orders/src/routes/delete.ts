@@ -1,6 +1,7 @@
 import express, { Request,Response } from 'express';
 import { NotAuthorizedError, NotFoundError, requireAuth } from '@supafellas/common';
-import { Order, OrderStatus } from '../models/order';
+import { Order } from '../models/order';
+import { OrderStatus } from '@supafellas/common';
 import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-publisher';
 import { natsWrapper } from '../nats-wrapper';
 

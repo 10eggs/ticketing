@@ -747,3 +747,6 @@ test against mongodb objectid
 
 
 #Run script to update package in all project directories
+
+#Line2 in order model (order service) replaced - should be imported from npm module, it is imported directly instead
+#Problem with exporting ENUMS

@@ -750,3 +750,15 @@ test against mongodb objectid
 
 #Line2 in order model (order service) replaced - should be imported from npm module, it is imported directly instead
 #Problem with exporting ENUMS
+
+
+#413 Clear concurrency issues
+# Orders and Tickets DBs are out of sync, we have to implement versioning
+# Versioning in MongoDB is oob
+# Concurrency Optimistic Control for Microservices - read
+# Introducing new module - mongoose-update-if-current, which creates version as a timestamp
+# __v - property for version, we'll want to change it for version
+#ticketSchema.set('versionKey','version');
+
+#When should we increment or include the version number of a record with an event?
+#Whenever the primary service responsible for a record emits an event to describe a create update destroy to a record

@@ -1,13 +1,13 @@
+import mongoose from 'mongoose'
 import request from 'supertest';
 import { app } from '../../app'
 import { Ticket } from '../../models/ticket';
 
 
-
-
 it('fetches the order', async () =>{
   //Create ticket
   const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: 'title',
     price: 20
   });
@@ -40,6 +40,7 @@ it.todo('return 404 when order not found');
 it('401 if one user tries to fetch another users order', async () =>{
   //Create ticket
   const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: 'title',
     price: 20
   });

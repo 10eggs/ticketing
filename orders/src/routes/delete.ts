@@ -25,8 +25,7 @@ router.delete('/api/orders/:orderId', async (req: Request, res: Response)=>{
   
   await order.save();
   
-  res.status(204).send(order);
-
+  
   //pub event about cancellation
   new OrderCancelledPublisher(natsWrapper.client).publish({
     id: order.id,
@@ -35,6 +34,10 @@ router.delete('/api/orders/:orderId', async (req: Request, res: Response)=>{
       id: order.ticket.id
     }
   })
+  
+  res.status(204).send(order);
+
+
 })
 
 export { router as deleteOrderRouter };

@@ -762,3 +762,9 @@ test against mongodb objectid
 
 #When should we increment or include the version number of a record with an event?
 #Whenever the primary service responsible for a record emits an event to describe a create update destroy to a record
+
+#You can run a command inside the shell:
+# db.tickets.find({})
+
+By using //@ts-ignore annotation above declaration = all typescript complains are disabled
+

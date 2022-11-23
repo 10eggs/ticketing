@@ -769,3 +769,15 @@ test against mongodb objectid
 By using //@ts-ignore annotation above declaration = all typescript complains are disabled
 
 #432. Changes for nats client 
+
+#434. Mock Function Arguments
+
+#To tell TS that we are working with Mock we need to use the following:
+#(natsWrapper.client.publish as jest.Mock) then are are getting access to all mock properties
+
+#441. Expiration Options
+#IF we could use another tool to distribute messages (message broker) we wouldn't need expiration service.
+#By using NATS we are forced to implement this service and handle expiration time by ourselves
+#Other solutions may have this options to dispatch event after 15 mins
+
+#Introduce another package, bull is

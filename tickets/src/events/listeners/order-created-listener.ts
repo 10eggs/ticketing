@@ -1,8 +1,8 @@
 import { Message } from 'node-nats-streaming';
 import { Listener, OrderCreatedEvent, Subjects } from '@supafellas/common';
 import { queueGroupName } from './queue-group-name';
-import { Ticket } from '../../../models/ticket';
-import { TicketUpdatedPublisher } from '../ticket-updated-publisher';
+import { Ticket } from '../../models/ticket';
+import { TicketUpdatedPublisher } from '../publisher/ticket-updated-publisher';
 
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent>{
@@ -23,8 +23,14 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent>{
 
     //Save the ticket
     await ticket.save();
-
-    
+    await new TicketUpdatedPublisher(this.client).publish({
+      id: ticket.id,
+      price: ticket.price,
+      title: ticket.title,
+      userId: ticket.userId,
+      orderId: ticket.orderId,
+      version: ticket.version
+    });
     //ack the message
     msg.ack();
   }

@@ -7,7 +7,8 @@ import{
   validateRequest,
   requireAuth,
   NotFoundError,
-  NotAuthorizedError
+  NotAuthorizedError,
+  BadRequestError
 } from '@supafellas/common'
 
 const router = express.Router();
@@ -27,6 +28,11 @@ router.put('/api/tickets/:id', requireAuth,[
     throw new NotFoundError();
   }
 
+  if(ticket.orderId){
+    throw new BadRequestError('Cannot edit a reserved ticket');
+  }
+
+  
   if(ticket.userId !== req.currentUser!.id){
     throw new NotAuthorizedError();
   }

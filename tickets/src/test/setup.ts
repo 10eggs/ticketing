@@ -43,7 +43,7 @@ global.signin = ()=>{
 
 }
 jest.mock('../nats-wrapper');
-
+jest.setTimeout(8000);
 let mongo: any;
 
  beforeAll(async()=>{

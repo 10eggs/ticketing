@@ -781,3 +781,16 @@ By using //@ts-ignore annotation above declaration = all typescript complains ar
 #Other solutions may have this options to dispatch event after 15 mins
 
 #Introduce another package, bull is
+#How are we using Bull?
+#When we are going to do some long-time-running process we need separate worker server
+#So we may use Bull JS to send a job object to redis server
+#Redis is listening these jobs
+#Worker servers (may be more than one instace of course) are pulling from Redis Server if any job to process appear
+#If job processed - send message back to redis
+
+#Similar to NATS right?
+#Bull is not inteded to handling huge number of messages as NATS
+
+#Queue - main abstraction inside a bull
+#So first we are creating queue, next we need to decide what we want to do with messages in the queue
+#

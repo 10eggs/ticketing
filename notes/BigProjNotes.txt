@@ -793,4 +793,13 @@ By using //@ts-ignore annotation above declaration = all typescript complains ar
 
 #Queue - main abstraction inside a bull
 #So first we are creating queue, next we need to decide what we want to do with messages in the queue
+
+#Bull
+#Job type - string descrption almost equal to idea of the channel
+#Job will be temporarily store in Redis Server
+#Once 15 mins elapse then redis server will send this message to expiration queue
+#In queue (in this case queue = service) we'll have some code to process expiration queue job
+#order:expiration is the queue name
+#job = message
+#To add delay for a message in OrderCreatedListener we need to pass option object,
 #

@@ -802,4 +802,7 @@ By using //@ts-ignore annotation above declaration = all typescript complains ar
 #order:expiration is the queue name
 #job = message
 #To add delay for a message in OrderCreatedListener we need to pass option object,
-#
+
+#When we are cancelling order we don't want to set ticket to null - we want to give user ability to check which ticket
+#was inside cancelled order
+
